@@ -37,5 +37,14 @@ public class AnalyticsCounter {
 		iSymptomWriter.writeSymptoms(symptoms);
 	}
 
-	public static void main(String[] args) throws Exception {}
+	public static void main(String[] args) throws Exception {
+		ISymptomReader symptomReader = new ReadSymptomDataFromFile("symptoms.txt");
+		ISymptomWriter symptomWriter = new WriteSymptomDataToFile("result.out");
+		AnalyticsCounter counter = new AnalyticsCounter(symptomReader, symptomWriter);
+
+		List<String> symptoms = counter.getSymptoms();
+		Map<String, Integer> countedSymptoms = counter.countSymptoms(symptoms);
+		Map<String, Integer> sortedSymptoms = counter.sortSymptoms(countedSymptoms);
+		counter.writeSymptoms(sortedSymptoms);
+	}
 }
